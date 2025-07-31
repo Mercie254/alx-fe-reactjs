@@ -2,22 +2,30 @@ import { create } from 'zustand';
 
 export const useRecipeStore = create((set) => ({
   recipes: [],
+  filteredRecipes: [],
+  favorites: [],
   recommendations: [],
 
-  // Add or replace full recipe list
-  setRecipes: (newRecipes) => set(() => ({ recipes: newRecipes })),
+  setRecipes: (newRecipes) => set(() => ({
+    recipes: newRecipes,
+    filteredRecipes: newRecipes,
+    favorites: newRecipes.filter(recipe => recipe.favorite),
+  })),
 
-  // Toggle favorite inside recipe object
   toggleFavorite: (id) =>
-    set((state) => ({
-      recipes: state.recipes.map((recipe) =>
-        recipe.id === id
-          ? { ...recipe, favorite: !recipe.favorite }
-          : recipe
-      ),
-    })),
+    set((state) => {
+      const updatedRecipes = state.recipes.map((recipe) =>
+        recipe.id === id ? { ...recipe, favorite: !recipe.favorite } : recipe
+      );
+      const updatedFavorites = updatedRecipes.filter((r) => r.favorite);
 
-  // Generate random recommendations from non-favorited recipes
+      return {
+        recipes: updatedRecipes,
+        favorites: updatedFavorites,
+        filteredRecipes: updatedRecipes,
+      };
+    }),
+
   generateRecommendations: () =>
     set((state) => {
       const recommended = state.recipes.filter(
@@ -26,7 +34,6 @@ export const useRecipeStore = create((set) => ({
       return { recommendations: recommended };
     }),
 
-  // Optional: filtered recipe list for search
-  filteredRecipes: [],
-  setFilteredRecipes: (filtered) => set(() => ({ filteredRecipes: filtered })),
+  setFilteredRecipes: (filtered) =>
+    set(() => ({ filteredRecipes: filtered })),
 }));
