@@ -1,31 +1,48 @@
-import { useState } from 'react';
-import { useRecipeStore } from '../components/recipeStore';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useRecipeStore } from './recipeStore';
 
-const EditRecipeForm = ({ recipe }) => {
-  const [title, setTitle] = useState(recipe.title);
-  const [description, setDescription] = useState(recipe.description);
+const EditRecipeForm = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const recipes = useRecipeStore((state) => state.recipes);
   const updateRecipe = useRecipeStore((state) => state.updateRecipe);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    updateRecipe({ id: recipe.id, title, description });
-    alert('Recipe updated!');
+  const recipeToEdit = recipes.find((r) => r.id === Number(id));
+
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+
+  useEffect(() => {
+    if (recipeToEdit) {
+      setTitle(recipeToEdit.title);
+      setDescription(recipeToEdit.description);
+    }
+  }, [recipeToEdit]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault(); // ✅ REQUIRED
+    updateRecipe({ id: Number(id), title, description });
+    navigate('/');
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
+    <form onSubmit={handleSubmit} style={{ padding: '20px' }}>
+      <h2>Edit Recipe</h2>
       <input
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        style={{ display: 'block', margin: '10px 0', width: '100%' }}
+        placeholder="Title"
+        style={{ display: 'block', marginBottom: '10px', width: '100%' }}
       />
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        style={{ display: 'block', margin: '10px 0', width: '100%' }}
+        placeholder="Description"
+        style={{ display: 'block', marginBottom: '10px', width: '100%' }}
       />
-      <button type="submit">Update</button>
+      <button type="submit">Update Recipe</button>
     </form>
   );
 };
