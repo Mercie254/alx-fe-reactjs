@@ -1,16 +1,15 @@
 import { useRecipeStore } from '../components/recipeStore';
 import { Link } from 'react-router-dom';
+import SearchBar from './SearchBar';
 
 const RecipeList = () => {
-  const recipes = useRecipeStore((state) => state.recipes);
-
-  // 🔍 Debug: Log recipes to check state
-console.log("RecipeList rendered, recipes:", recipes); // ✅ Debug
+  const recipes = useRecipeStore((state) => state.filteredRecipes);
 
   return (
     <div style={{ padding: '20px' }}>
       <h2>Recipes</h2>
-      {recipes.length === 0 && <p>No recipes yet.</p>}
+      <SearchBar />
+      {recipes.length === 0 && <p>No recipes found.</p>}
       {recipes.map((recipe) => (
         <div key={recipe.id} style={{ marginBottom: '10px' }}>
           <h3>
