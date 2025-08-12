@@ -1,22 +1,20 @@
 import axios from "axios";
 
-export const fetchAdvancedUsers = async (username, location, minRepos) => {
+export const fetchUserData = async (username, location = "", minRepos = "") => {
   try {
-    let query = username ? `${username} in:login` : "";
-    if (location) query += ` location:${location}`;
-    if (minRepos) query += ` repos:>=${minRepos}`;
+    // If extra filters are given, use search endpoint
+    if (location || minRepos) {
+      let query = username ? `${username} in:login` : "";
+      if (location) query += ` location:${location}`;
+      if (minRepos) query += ` repos:>=${minRepos}`;
 
-    const response = await axios.get(`https://api.github.com/search/users?q=${query}`);
-    return response.data.items;
-  } catch (error) {
-    throw new Error("Error fetching advanced search results");
-  }
-};
+      const response = await axios.get(`https://api.github.com/search/users?q=${query}`);
+      return response.data.items; // returns multiple users
+    }
 
-export const fetchUserData = async (username) => {
-  try {
+    // Default single-user endpoint
     const response = await axios.get(`https://api.github.com/users/${username}`);
-    return response.data;
+    return response.data; // returns one user object
   } catch (error) {
     throw new Error("User not found");
   }
