@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // ✅ Add Link import
-
-<Link
-  to="/add"
-  className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
->
-  Add New Recipe
-</Link>
-
+import { Link } from "react-router-dom"; // ✅ Correct import
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -21,6 +13,15 @@ const HomePage = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Recipe Sharing App</h1>
+
+      {/* ✅ Add New Recipe Button */}
+      <Link
+        to="/add"
+        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition inline-block mb-6"
+      >
+        Add New Recipe
+      </Link>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {recipes.map((recipe) => (
           <div
@@ -35,7 +36,7 @@ const HomePage = () => {
             <h2 className="text-xl font-semibold mt-2">{recipe.title}</h2>
             <p className="text-gray-600">{recipe.summary}</p>
 
-            {/* ✅ Wrap with Link */}
+            {/* ✅ Link to Details */}
             <Link
               to={`/recipe/${recipe.id}`}
               className="text-blue-600 mt-2 inline-block hover:underline"
