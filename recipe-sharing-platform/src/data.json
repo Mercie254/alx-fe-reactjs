@@ -3,18 +3,61 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/300x200"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "200g spaghetti",
+      "100g pancetta or bacon",
+      "2 eggs",
+      "50g Parmesan cheese",
+      "Black pepper"
+    ],
+    "instructions": [
+      "Cook the spaghetti according to package instructions.",
+      "Fry pancetta until crispy.",
+      "Beat eggs with Parmesan cheese.",
+      "Drain pasta and quickly mix with pancetta, eggs, and cheese.",
+      "Season with black pepper and serve."
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://via.placeholder.com/300x200"
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "500g chicken breast",
+      "200g yogurt",
+      "2 tbsp tikka masala paste",
+      "1 onion",
+      "200ml tomato puree",
+      "100ml cream"
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt and tikka masala paste for at least 1 hour.",
+      "Grill or pan-fry chicken until cooked.",
+      "Sauté onions, add tomato puree and spices.",
+      "Add chicken and cream, simmer until thick.",
+      "Serve with rice or naan."
+    ]
   },
   {
     "id": 3,
     "title": "Avocado Toast",
-    "summary": "Crispy toast topped with creamy smashed avocado, a sprinkle of chili flakes, and lemon juice.",
-    "image": "https://via.placeholder.com/300x200"
+    "summary": "A simple and healthy breakfast or snack made with toasted bread, smashed avocado, and toppings of your choice.",
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "2 slices whole-grain bread",
+      "1 ripe avocado",
+      "1 tsp lemon juice",
+      "Salt & pepper",
+      "Optional: cherry tomatoes, poached egg, chili flakes"
+    ],
+    "instructions": [
+      "Toast the bread until golden brown.",
+      "Mash avocado with lemon juice, salt, and pepper.",
+      "Spread the avocado mix over the toast.",
+      "Add toppings like tomatoes, egg, or chili flakes.",
+      "Serve immediately."
+    ]
   }
 ]
