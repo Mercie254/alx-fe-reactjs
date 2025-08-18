@@ -1,46 +1,44 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"; // ✅ Add Link import
 
-function HomePage() {
+const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetch("/src/data.json")
-      .then((response) => response.json())
-      .then((data) => setRecipes(data))
-      .catch((error) => console.error("Error loading recipes:", error));
+    fetch("/data.json")
+      .then((res) => res.json())
+      .then((data) => setRecipes(data));
   }, []);
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold text-center mb-8">🍲 Recipe Sharing Platform</h1>
-
-      {/* Responsive Grid with explicit grid-cols-1 */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Recipe Sharing App</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {recipes.map((recipe) => (
           <div
             key={recipe.id}
-            className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transform hover:scale-105 transition duration-300"
+            className="p-4 border rounded-lg shadow-md hover:shadow-lg transition"
           >
             <img
               src={recipe.image}
               alt={recipe.title}
-              className="w-full h-48 object-cover"
+              className="w-full h-40 object-cover rounded-md"
             />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">{recipe.title}</h2>
-              <p className="text-gray-600">{recipe.summary}</p>
-              <a
-                href={`/recipe/${recipe.id}`}
-                className="text-blue-500 hover:underline mt-2 inline-block"
-              >
-                View Recipe →
-              </a>
-            </div>
+            <h2 className="text-xl font-semibold mt-2">{recipe.title}</h2>
+            <p className="text-gray-600">{recipe.summary}</p>
+
+            {/* ✅ Wrap with Link */}
+            <Link
+              to={`/recipe/${recipe.id}`}
+              className="text-blue-600 mt-2 inline-block hover:underline"
+            >
+              View Details
+            </Link>
           </div>
         ))}
       </div>
     </div>
   );
-}
+};
 
 export default HomePage;
