@@ -1,31 +1,27 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Home from "./pages/Home";
-import Profile from "./pages/Profile";
-import ProfileDetails from "./pages/ProfileDetails";
-import ProfileSettings from "./pages/ProfileSettings";
-import Post from "./pages/Post";
-import Login from "./pages/Login";
-
-// Simple auth simulation
-const isAuthenticated = () => {
-  // change to true to simulate login
-  return false;
-};
-
-// Protected route wrapper
-const ProtectedRoute = ({ children }) => {
-  return isAuthenticated() ? children : <Navigate to="/login" />;
-};
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./components/Home";
+import About from "./components/About";
+import Profile from "./components/Profile";
+import BlogPost from "./components/BlogPost";   // ✅ import BlogPost
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <Router>
+      <nav>
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/about">About</Link> |{" "}
+        <Link to="/profile">Profile</Link> |{" "}
+        <Link to="/blog/1">Blog 1</Link> |{" "}
+        <Link to="/blog/2">Blog 2</Link>
+      </nav>
+
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
 
-        <Route path="/login" element={<Login />} />
-
+        {/* ✅ Protected Route for Profile */}
         <Route
           path="/profile/*"
           element={
@@ -33,14 +29,10 @@ function App() {
               <Profile />
             </ProtectedRoute>
           }
-        >
-          <Route path="details" element={<ProfileDetails />} />
-          <Route path="settings" element={<ProfileSettings />} />
-        </Route>
+        />
 
-        <Route path="/post/:postId" element={<Post />} />
-
-        <Route path="*" element={<h1>404: Page not found</h1>} />
+        {/* ✅ Dynamic Blog Route */}
+        <Route path="/blog/:id" element={<BlogPost />} />
       </Routes>
     </Router>
   );
