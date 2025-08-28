@@ -1,4 +1,3 @@
-// src/components/PostsComponent.jsx
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
@@ -21,7 +20,10 @@ const PostsComponent = () => {
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    staleTime: 1000 * 60, // 1 min caching
+    staleTime: 1000 * 60,        // 1 min caching
+    cacheTime: 1000 * 60 * 5,    // 5 mins cache storage
+    refetchOnWindowFocus: true,  // auto refetch on window focus
+    keepPreviousData: true,      // keep old data when fetching new
   });
 
   if (isLoading) return <p>Loading posts...</p>;
